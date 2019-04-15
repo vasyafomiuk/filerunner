@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class ReadFile {
 	public static void main(String[] args) {
 		ArrayList<List<String>> values = new ArrayList<>();
-		try (Scanner scan = new Scanner(new File("src/test/resources/Exercise input.txt"));) {
+		try (Scanner scan = new Scanner(new File(args[0]));) {
 			while (scan.hasNextLine()) {
 				values.add(Arrays.asList(scan.nextLine().replace("\"", "").split(",")));
 			}
