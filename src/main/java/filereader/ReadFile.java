@@ -20,26 +20,18 @@ public class ReadFile {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		Collections.sort(values, new Comparator<List<String>>() {
-			@Override
-			public int compare(List<String> o1, List<String> o2) {
-				return o1.get(1).compareTo(o2.get(1));
-			}
-		});
+		Comparator<List<String>> comps1 = Comparator.comparing(o1->o1.get(1)) ; 
+		Comparator<List<String>> comps2 = Comparator.comparing(o1->o1.get(0)) ; 
+		comps1.thenComparing(comps2);
+		Collections.sort(values, comps1.thenComparing(comps2)  );
 		for (List<String> list : values) {
-
 			if (Integer.parseInt(list.get(list.size() - 1)) > 18) {
-				System.out.print("First name: " + list.get(0) + ", Last name: " + list.get(1) + ", Address: "
-						+ (list.get(2).contains(".") ? list.get(2).substring(0, list.get(2).lastIndexOf("."))
-								: list.get(2))
-						+ ", "
-						+ (list.get(3).length() > 2
-								? list.get(3).substring(0, 1).toUpperCase() + list.get(3).substring(1).toLowerCase()
-										+ ", Age: " + list.get(list.size() - 1)
-								: list.get(2).substring(list.get(2).lastIndexOf(" ") + 1))
-						+ ", " + (list.get(4).matches("\\d+") ? list.get(3).toUpperCase() : list.get(4).toUpperCase())
-						+ ", Age: " + list.get(list.size() - 1));
+				System.out.print(list.get(0)+" ");
+				System.out.print(list.get(1)+" ");
+				System.out.print((list.get(2).contains(".")? list.get(2).substring(0, list.get(2).indexOf("."))+".": list.get(2))+" ");
+				System.out.print((list.get(3).length()==2? list.get(2).substring(list.get(2).lastIndexOf(" ")).trim(): list.get(3))+" ");
+				System.out.print((list.get(4).matches("\\d+")?list.get(3).toUpperCase():list.get(4).toUpperCase())+" ");
+				System.out.print((list.get(4).matches("\\d+")?list.get(4): list.get(5) ));
 				System.out.println();
 			}
 		}
